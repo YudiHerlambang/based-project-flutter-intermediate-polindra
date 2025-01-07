@@ -1,56 +1,20 @@
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/config/app_const.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/model/list_club_model.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/presentation/list_club_controller.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/presentation/list_club_state.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/list_club_item_club_model.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/config/app_route.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/listclubitem/model/listclubitem_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ListClubScreen extends StatefulWidget {
-  const ListClubScreen({super.key});
+class ListClubItemWidget extends StatelessWidget {
+  final ListClubItemModel? listClubItemModel;
 
-  @override
-  State<ListClubScreen> createState() => _ListClubScreenState();
-}
-
-class _ListClubScreenState extends State<ListClubScreen> {
-  final _controller = Get.find<ListClubController>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller.onInit();
-  }
+  const ListClubItemWidget({super.key, this.listClubItemModel});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: _appBar(), body: _bodyBuilder());
-  }
-
-  PreferredSizeWidget _appBar() {
-    return AppBar(
-      title: Text(
-        "Home",
-        style: TextStyle(color: Colors.white),
-      ),
-      backgroundColor: Colors.red,
-      centerTitle: true,
-    );
-  }
-
-  Widget _listView(ListClubModel listClubModel) {
-    return ListView.builder(
-        itemCount: listClubModel.teams?.length ?? 0,
-        itemBuilder: (context, index) {
-          return _itemClub(listClubModel.teams![index]);
-        });
-  }
-
-  Widget _itemClub(ItemClubModel item) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return GestureDetector(
+      onTap: () async => Get.toNamed(AppRoute.detailScreen,
+          arguments: listClubItemModel?.idTeam),
       child: Container(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height / 7,
@@ -74,7 +38,7 @@ class _ListClubScreenState extends State<ListClubScreen> {
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
-                imageUrl: item.strBadge ?? AppConst.imageExample,
+                imageUrl: listClubItemModel?.strBadge ?? AppConst.imageExample,
                 width: 80,
                 height: 80,
                 fit: BoxFit.cover,
@@ -94,7 +58,7 @@ class _ListClubScreenState extends State<ListClubScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    item.strTeam ?? "-",
+                    listClubItemModel?.strTeam ?? "-",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -104,6 +68,16 @@ class _ListClubScreenState extends State<ListClubScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
+                  Text(
+                    listClubItemModel?.strDescriptionEN ?? "Club Description",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey[600],
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ],
               ),
             ),
@@ -115,27 +89,5 @@ class _ListClubScreenState extends State<ListClubScreen> {
         ),
       ),
     );
-  }
-
-  Widget _bodyBuilder() {
-    return GetBuilder<ListClubController>(builder: (controller) {
-      final state = controller.listClubState;
-
-      if (state is ListClubStateLoading) {
-        return const Center(child: CircularProgressIndicator());
-      }
-
-      if (state is ListClubStateError) {
-        return const Center(
-          child: Text("Error Bro"),
-        );
-      }
-
-      if (state is ListClubStateSuccess) {
-        return _listView(state.listClubModel!);
-      }
-
-      return Container();
-    });
   }
 }
