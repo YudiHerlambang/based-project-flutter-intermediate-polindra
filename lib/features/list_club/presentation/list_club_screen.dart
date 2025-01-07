@@ -25,7 +25,9 @@ class _ListClubScreenState extends State<ListClubScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: SafeArea(child: _bodyBuilder()),
+      body: SafeArea(
+        child: _bodyBuilder(), // Memanggil fungsi _bodyBuilder()
+      ),
     );
   }
 
@@ -40,11 +42,10 @@ class _ListClubScreenState extends State<ListClubScreen> {
     );
   }
 
+  // Menambahkan fungsi _listViewBuilder untuk membangun list view
   Widget _listViewBuilder(ListClubModel? listClubModel) {
     if (listClubModel == null || listClubModel.teams == null) {
-      return const Center(
-        child: Text("Empty"),
-      );
+      return const Center(child: Text("Empty"));
     }
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -55,10 +56,14 @@ class _ListClubScreenState extends State<ListClubScreen> {
           ),
         );
       },
-      itemCount: listClubModel.teams?.length ?? 0,
+      itemCount: _controller.isShowMore.value
+          ? listClubModel.teams?.length ??
+              0 // Menampilkan semua item saat Show More
+          : 3, // Menampilkan hanya 3 item saat Show Less
     );
   }
 
+  // Fungsi _bodyBuilder untuk memanggil GetBuilder dan menampilkan state
   Widget _bodyBuilder() {
     return GetBuilder<ListClubController>(
       builder: (controller) {
@@ -72,13 +77,58 @@ class _ListClubScreenState extends State<ListClubScreen> {
         }
 
         if (state is ListClubStateSuccess) {
-          return _listViewBuilder(state.listClubModel);
+          return _body(
+              state.listClubModel); // Menggunakan _body untuk menampilkan data
         }
 
-        return const Center(
-          child: Text("Error"),
-        );
+        return const Center(child: Text("Error"));
       },
+    );
+  }
+
+  // Fungsi _body untuk menampilkan konten utama
+  Widget _body(ListClubModel? listClubModel) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 1.25,
+            child: _listViewBuilder(
+                listClubModel), // Menampilkan list view sesuai data
+          ),
+          const SizedBox(height: 8),
+          _buttonShowMore(), // Tombol untuk menampilkan lebih banyak
+        ],
+      ),
+    );
+  }
+
+  // Fungsi button untuk menampilkan lebih banyak data
+  Widget _buttonShowMore() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Obx(() {
+        return GestureDetector(
+          onTap: () => _controller
+              .isShowMoreData(), // Memanggil isShowMoreData() untuk membalikkan nilai
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              color: Colors.grey,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: Text(
+              _controller.isShowMore.value ? "Show Less" : "Show More",
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
