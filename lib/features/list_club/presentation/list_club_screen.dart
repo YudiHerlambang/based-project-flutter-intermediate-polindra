@@ -2,7 +2,7 @@ import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/c
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/model/list_club_model.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/presentation/list_club_controller.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/presentation/list_club_state.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/list_club_item_club_model.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/item_club_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,5 @@
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/config/app_const.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/list_club_item_club_model.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/item_club_model.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/presentation/list_club_item_controller.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/presentation/list_club_item_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';

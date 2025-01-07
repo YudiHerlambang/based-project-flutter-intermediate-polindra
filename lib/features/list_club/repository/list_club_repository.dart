@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/base/base_repository.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/util/state.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/model/list_club_model.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/repository/list_club_datasource.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/repository/list_club_datsource.dart';
 import 'package:logger/logger.dart';
 
 class ListClubRepository extends BaseRepository {
