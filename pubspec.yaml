@@ -21,7 +21,7 @@ dependencies:
 #  PARSING DATA FROM API
   dio: ^5.4.3+1
   retrofit: ^4.1.0
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
 #  SQLITE & Drift
   drift: ^2.23.1
   drift_flutter: ^0.1.0

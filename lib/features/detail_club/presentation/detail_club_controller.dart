@@ -15,11 +15,14 @@ class DetailClubController extends GetxController {
   final Logger _logger = Logger();
 
   @override
-  void onInit() {
+  void onInit() async {
     // TODO: implement onInit
     super.onInit();
     itemClubModel = Get.arguments;
     _isFavoriteClub();
+
+    var data = await database.select(database.favoriteClubs).get();
+    _logger.i(data.length);
   }
 
   void _isFavoriteClub() async {
@@ -29,11 +32,17 @@ class DetailClubController extends GetxController {
     try {
       final infoIsFavorite = database.select(database.favoriteClubs)
         ..where((test) => test.idTeam.equals(itemClubModel.idTeam!));
-      final result = await infoIsFavorite.getSingleOrNull();
+      final result = await infoIsFavorite.get(); // Ambil semua hasil
 
-      if (result != null) {
+      if (result.isNotEmpty) {
         _logger.i("This club is your favorite item");
         isFavorite.value = true;
+
+        // Log jika ada duplikasi
+        if (result.length > 1) {
+          _logger.w(
+              "Duplicate favorite items detected for idTeam: ${itemClubModel.idTeam!}");
+        }
       } else {
         _logger.i("This club is not your favorite item");
         isFavorite.value = false;
@@ -42,6 +51,7 @@ class DetailClubController extends GetxController {
       state = DetailClubStateSuccess(isFavorite.value);
     } catch (e) {
       state = DetailClubStateError();
+      _logger.e(e);
     } finally {
       update();
     }
@@ -49,12 +59,15 @@ class DetailClubController extends GetxController {
 
   void actionOnTapButtonFavorite() {
     if (isFavorite.value) {
-      database
-          .delete(database.favoriteClubs)
-          .where((test) => test.idTeam.equals(itemClubModel.idTeam!));
-      isFavorite.value = false;
-
-      _logger.i("Success delete as favorite");
+      (database.delete(database.favoriteClubs)
+            ..where((tbl) => tbl.idTeam.equals(itemClubModel.idTeam!)))
+          .go()
+          .then((_) {
+        isFavorite.value = false;
+        _logger.i("Success delete as favorite");
+      }).catchError((error) {
+        _logger.e("Failed to delete favorite: $error");
+      });
     } else {
       database.into(database.favoriteClubs).insert(
           FavoriteClubsCompanion.insert(
