@@ -1,9 +1,9 @@
 // ignore_for_file: unused_import
 
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/dummy-item/binding/dummy_item_binding.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/dummy-item/presentation/dummy_item_screen.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/dummy/binding/dummy_binding.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/dummy/presentation/dummy_screen.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/binding/club_binding.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/presentation/club_screen.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/binding/club_item_binding.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/presentation/club_item_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
 import '../../main.dart';
@@ -16,11 +16,11 @@ class AppRoute {
   static List<GetPage> pages = [
     GetPage(
         name: defaultRoute,
-        page: () => const DummyScreen(),
-        binding: DummyBinding()),
+        page: () => const ClubScreen(),
+        binding: ClubBinding()),
     GetPage(
         name: detailScreen,
-        page: () => const DummyItemScreen(),
-        binding: DummyItemBinding())
+        page: () => const ClubItemScreen(),
+        binding: ClubItemBinding())
   ];
 }
