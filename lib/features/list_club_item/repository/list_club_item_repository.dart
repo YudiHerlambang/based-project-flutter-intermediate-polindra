@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/base/base_repository.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/util/state.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/item_club_model.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/model/item_club_model.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/repository/list_club_item_datasource.dart';
 import 'package:logger/logger.dart';
 

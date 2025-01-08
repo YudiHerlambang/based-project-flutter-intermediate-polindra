@@ -1,6 +1,6 @@
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/config/app_const.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/config/app_route.dart';
-import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club_item/model/item_club_model.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/list_club/model/item_club_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

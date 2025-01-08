@@ -8,13 +8,10 @@ class ItemClubModel {
   final String? strTeam;
   final String? strDescriptionEN;
   final String? strBadge;
+  final String? strStadium;
 
-  ItemClubModel(
-    this.idTeam,
-    this.strTeam,
-    this.strDescriptionEN,
-    this.strBadge,
-  );
+  ItemClubModel(this.idTeam, this.strTeam, this.strDescriptionEN, this.strBadge,
+      this.strStadium);
 
   factory ItemClubModel.fromJson(Map<String, dynamic> json) =>
       _$ItemClubModelFromJson(json);
