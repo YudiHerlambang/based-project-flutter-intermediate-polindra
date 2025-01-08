@@ -22,6 +22,9 @@ dependencies:
   dio: ^5.4.3+1
   retrofit: ^4.1.0
   json_annotation: ^4.8.1
+#  SQLITE & Drift
+  drift: ^2.23.1
+  drift_flutter: ^0.1.0
 #
   cupertino_icons: ^1.0.8
 
@@ -29,6 +32,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+#  SQLITE & Drift
+  drift_dev: ^2.23.1
 
 #  Parsing data from API (Auto Generate Model Class)
   retrofit_generator: ^8.1.0

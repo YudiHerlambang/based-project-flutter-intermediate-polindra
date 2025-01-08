@@ -8,6 +8,12 @@ import 'package:get/get.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // final database = AppDatabase();
+  //
+  // List<FavoriteClub> listFavoriteClub =
+  //     await database.select(database.favoriteClubs).get();
+  //
+  // Logger().i("Total data favorite clubs : ${listFavoriteClub.length}");
   await _dependencyInjection();
   runApp(const MyApp());
 }

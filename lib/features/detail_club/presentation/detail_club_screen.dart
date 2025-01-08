@@ -1,5 +1,6 @@
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/components/config/app_const.dart';
 import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/detail_club/presentation/detail_club_controller.dart';
+import 'package:base_project_pelatihan_mobile_intermediate_polindra/features/detail_club/presentation/detail_club_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,9 +18,9 @@ class _DetailClubScreenState extends State<DetailClubScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
-      body: _body(),
-    );
+        appBar: _appBar(),
+        body: _bodyBuilder(),
+        floatingActionButton: _floatingActionButton());
   }
 
   PreferredSizeWidget _appBar() {
@@ -96,5 +97,59 @@ class _DetailClubScreenState extends State<DetailClubScreen> {
         ],
       ),
     );
+  }
+
+  Widget _bodyBuilder() {
+    return GetBuilder<DetailClubController>(builder: (controller) {
+      final state = controller.state;
+
+      if (state is DetailClubStateLoading) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      if (state is DetailClubStateError) {
+        return const Center(
+          child: Text("Error :("),
+        );
+      }
+
+      if (state is DetailClubStateSuccess) {
+        return _body();
+      }
+
+      return Container();
+    });
+  }
+
+  Widget _floatingActionButton() {
+    return GetBuilder<DetailClubController>(builder: (controller) {
+      final state = controller.state;
+
+      if (state is DetailClubStateLoading) {
+        return Container();
+      }
+
+      if (state is DetailClubStateError) {
+        return Container();
+      }
+
+      if (state is DetailClubStateSuccess) {
+        return Obx(() {
+          return FloatingActionButton(
+            onPressed: () async => _controller.actionOnTapButtonFavorite(),
+            backgroundColor:
+                _controller.isFavorite.value ? Colors.red : Colors.black,
+            child: const Icon(
+              Icons.favorite,
+              color: Colors.white,
+            ),
+          );
+        });
+      }
+
+      return Container();
+    });
   }
 }
